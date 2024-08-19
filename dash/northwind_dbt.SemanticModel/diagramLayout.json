@@ -1,0 +1,161 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {},
+          "nodeIndex": "dim_customers",
+          "nodeLineageTag": "3378dea7-5dd1-41d0-98a8-a470fd344121",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "dim_employees",
+          "nodeLineageTag": "74d2ccf6-f685-47cc-a18a-c986886f4ab1",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "dim_products",
+          "nodeLineageTag": "885f3651-7501-4f9a-9ace-65d9bd27700a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "fct_orders",
+          "nodeLineageTag": "3337b295-60fd-4f13-9d76-4df055b82d14",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "dim_calendar",
+          "nodeLineageTag": "32b6f20e-e73b-437e-aea4-1dd50f459651",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "metrics",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 70,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 1,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1327.7059661519224,
+            "y": 71.274543912503759
+          },
+          "nodeIndex": "dim_customers",
+          "nodeLineageTag": "3378dea7-5dd1-41d0-98a8-a470fd344121",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1064.9252151752455,
+            "y": 70.893337972100539
+          },
+          "nodeIndex": "dim_employees",
+          "nodeLineageTag": "74d2ccf6-f685-47cc-a18a-c986886f4ab1",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 802.337306747006,
+            "y": 72.956583810144238
+          },
+          "nodeIndex": "dim_products",
+          "nodeLineageTag": "885f3651-7501-4f9a-9ace-65d9bd27700a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1200.586294969107,
+            "y": 581.40627104108353
+          },
+          "nodeIndex": "fct_orders",
+          "nodeLineageTag": "3337b295-60fd-4f13-9d76-4df055b82d14",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1598.404300158147,
+            "y": 67.6376577007012
+          },
+          "nodeIndex": "dim_calendar",
+          "nodeLineageTag": "32b6f20e-e73b-437e-aea4-1dd50f459651",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "fOrders",
+      "zoomValue": 71.939058674413971,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "fOrders",
+  "defaultDiagram": "Todas as tabelas"
+}

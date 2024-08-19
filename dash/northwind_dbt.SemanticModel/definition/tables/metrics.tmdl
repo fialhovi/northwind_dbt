@@ -1,0 +1,75 @@
+table metrics
+	lineageTag: 675bcf89-592b-490d-aae2-580e1bddd494
+
+	measure 'Last Purchase' = MAX(fct_orders[order_date])
+		formatString: Short Date
+		displayFolder: RFM
+		lineageTag: 8ab6ffef-ece8-4108-8d59-07df8d8ce619
+
+	measure 'Days since Last Purchase' =
+			
+			VAR CutDate = MIN( MAX(dim_calendar[Data]), TODAY() )
+			RETURN
+			
+			DATEDIFF([Last Purchase], CutDate, DAY)
+		formatString: 0
+		displayFolder: RFM
+		lineageTag: ba282347-bea9-42c2-b9d9-f68961233801
+
+	measure Purchases = DISTINCTCOUNT(fct_orders[order_id])
+		formatString: 0
+		lineageTag: 8476a4a8-700e-42ac-b115-3f2b3deb2312
+
+	measure 'Purchases Last 12M' =
+			
+			VAR CutDate = MIN(MAX(dim_calendar[Data]), TODAY())
+			RETURN
+			
+			CALCULATE(
+			    [Purchases],
+			    DATESINPERIOD(
+			        dim_calendar[Data],
+			        CutDate,
+			        -12, MONTH
+			    )
+			)
+		formatString: 0
+		lineageTag: 1836d80d-00e1-4601-98bf-18fd01f851ec
+
+	measure Revenue = SUM(fct_orders[revenue])
+		lineageTag: 6b9c089e-1190-4f2e-a657-8fe08819991a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Customers = DISTINCTCOUNT(fct_orders[customer_id])
+		formatString: 0
+		lineageTag: 4bc0096e-c5f0-41ac-85e4-924878eb79cf
+
+	measure 'Average Ticket' = DIVIDE([Revenue], [Purchases], 0)
+		lineageTag: 87d1c8b7-9bcf-47f6-831c-07318e497742
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average Revenue Per Customer' = DIVIDE([Revenue], [Customers], 0)
+		lineageTag: 044a40df-1433-4bca-ad32-2a5b04587e62
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue LY' = SAMEPERIODLASTYEAR(fct_orders[revenue])
+		formatString: 0
+		lineageTag: 42d51f28-da7b-46b5-9b70-093213efca16
+
+	partition metrics = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Coluna 1", type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"Coluna 1"})
+				in
+				    #"Colunas Removidas"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,163 @@
+table dim_employees
+	lineageTag: 74d2ccf6-f685-47cc-a18a-c986886f4ab1
+
+	column employee_id
+		dataType: string
+		lineageTag: 1538d059-9e89-44cc-999e-6f1854a3f1ea
+		summarizeBy: none
+		sourceColumn: employee_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column title
+		dataType: string
+		lineageTag: 09b5f941-f97a-4942-a6ba-37583537652a
+		summarizeBy: none
+		sourceColumn: title
+
+		annotation SummarizationSetBy = Automatic
+
+	column title_of_courtesy
+		dataType: string
+		lineageTag: 27e86a39-c18e-449e-8c62-a118fb29ca86
+		summarizeBy: none
+		sourceColumn: title_of_courtesy
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: f7d3cf80-d061-4d4e-be70-85cf35c7b272
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column address
+		dataType: string
+		lineageTag: 0ead6759-4b03-4cf3-8985-182591f8d581
+		summarizeBy: none
+		sourceColumn: address
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: b862b93e-c0dc-4384-b1f9-6a7f9925deb1
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: 3fbd884c-eb0d-4bb3-9459-93b14fc2a320
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column postal_code
+		dataType: string
+		lineageTag: 84876ec5-ec50-43ee-a1df-07dc6b44a84b
+		summarizeBy: none
+		sourceColumn: postal_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: fbf1f8b1-3d34-458a-84c1-3ae5a1e68e11
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column home_phone
+		dataType: string
+		lineageTag: 88f8ef07-4009-4f50-bf6b-9217d8df7afb
+		summarizeBy: none
+		sourceColumn: home_phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column extension
+		dataType: string
+		lineageTag: e92551cd-a282-483d-9998-5780ad382bcd
+		summarizeBy: none
+		sourceColumn: extension
+
+		annotation SummarizationSetBy = Automatic
+
+	column photo
+		dataType: string
+		lineageTag: ff6ff310-cb0f-43f8-a94a-8a879532ec9e
+		summarizeBy: none
+		sourceColumn: photo
+
+		annotation SummarizationSetBy = Automatic
+
+	column notes
+		dataType: string
+		lineageTag: 6cb188ee-0c73-417a-b221-5b6fd10fba46
+		summarizeBy: none
+		sourceColumn: notes
+
+		annotation SummarizationSetBy = Automatic
+
+	column reports_to
+		dataType: string
+		lineageTag: 42afb929-5b09-4099-9a20-03a79ce64582
+		summarizeBy: none
+		sourceColumn: reports_to
+
+		annotation SummarizationSetBy = Automatic
+
+	column photo_path
+		dataType: string
+		lineageTag: b6654fdf-8c39-42fc-8b6a-8883694f5a7b
+		summarizeBy: none
+		sourceColumn: photo_path
+
+		annotation SummarizationSetBy = Automatic
+
+	column birth_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 4c25691c-0b1d-409f-9f34-3ec4af9187c7
+		summarizeBy: none
+		sourceColumn: birth_date
+
+		variation Variation
+			isDefault
+			relationship: 37a90e2d-403b-46ca-82a7-f6fa5eaf3d96
+			defaultHierarchy: LocalDateTable_b7e2c6c3-6cc5-4bca-9627-3c5f9598e87f.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column hire_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d119b1a5-9fa2-4f16-802c-d66cef9331c1
+		summarizeBy: none
+		sourceColumn: hire_date
+
+		variation Variation
+			isDefault
+			relationship: d29f7f01-9ec1-4068-b18b-4cbb02d43857
+			defaultHierarchy: LocalDateTable_ea6d62c4-126b-422b-b2d6-9aad293d53de.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_employees = m
+		mode: import
+		source =
+				let
+				    Fonte = Value.NativeQuery(PostgreSQL.Database("127.0.0.1", "northwind"), "SELECT employee_id, title, title_of_courtesy, name, address, city, region, postal_code, country, home_phone, extension, photo, notes, reports_to, photo_path, birth_date, hire_date#(lf)#(tab)FROM erp.employees", null, [EnableFolding=true])
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

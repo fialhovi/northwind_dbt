@@ -1,0 +1,135 @@
+table fct_orders
+	lineageTag: 3337b295-60fd-4f13-9d76-4df055b82d14
+
+	column order_id
+		dataType: string
+		lineageTag: 03c6fe9d-cc35-4c55-a188-7de1decaf8ab
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: string
+		lineageTag: 38ac5a4b-865e-4ff2-a36f-d9f764deea1a
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: 0df1c457-918c-4b60-bbe9-b7cb2abd0bb0
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column employee_id
+		dataType: string
+		lineageTag: 3cf03ca8-1081-48f2-b9c3-47c35b338eae
+		summarizeBy: none
+		sourceColumn: employee_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 56a0bd7b-9acf-4b75-ab13-2215be363f8e
+		summarizeBy: none
+		sourceColumn: order_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column revenue
+		dataType: double
+		lineageTag: 42c58da0-9470-4aa2-ba78-7e88d542a9a3
+		summarizeBy: sum
+		sourceColumn: revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ship_via
+		dataType: string
+		lineageTag: e57b97cc-2410-4f6c-aeaf-43656281103c
+		summarizeBy: none
+		sourceColumn: ship_via
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_name
+		dataType: string
+		lineageTag: b38110f4-4f93-45ab-adf7-2e27d2f468ca
+		summarizeBy: none
+		sourceColumn: ship_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_address
+		dataType: string
+		lineageTag: 06bcc37c-d4b8-40b7-b7fe-e408effc5da0
+		summarizeBy: none
+		sourceColumn: ship_address
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_city
+		dataType: string
+		lineageTag: 59b42b61-eac0-49a3-8e3d-b165a68f7254
+		summarizeBy: none
+		sourceColumn: ship_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_region
+		dataType: string
+		lineageTag: e21867d3-ed7f-48f3-bbe0-dc96e4648c09
+		summarizeBy: none
+		sourceColumn: ship_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_postal_code
+		dataType: string
+		lineageTag: c863f809-5e92-426c-9c0a-5313da70e080
+		summarizeBy: none
+		sourceColumn: ship_postal_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column ship_country
+		dataType: string
+		lineageTag: 2643718c-b090-4b3e-a687-3e8a89b8b958
+		summarizeBy: none
+		sourceColumn: ship_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column freight
+		dataType: double
+		lineageTag: d6c1c390-8d9f-4017-b55f-29bbde14f2c0
+		summarizeBy: sum
+		sourceColumn: freight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fct_orders = m
+		mode: import
+		source =
+				let
+				    Fonte = Value.NativeQuery(PostgreSQL.Database("127.0.0.1", "northwind"), "SELECT order_id, product_id, customer_id, employee_id, order_date, revenue, ship_via, ship_name, ship_address, ship_city, ship_region, ship_postal_code, ship_country, freight#(lf)#(tab)FROM erp.orders", null, [EnableFolding=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"order_date", type date}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

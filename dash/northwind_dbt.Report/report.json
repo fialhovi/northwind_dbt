@@ -1,0 +1,62 @@
+{
+  "config": "{\"version\":\"5.55\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU06\",\"version\":\"5.56\",\"type\":2}},\"activeSectionIndex\":1,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":2,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"useEnhancedTooltips\":true,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}],\"outspacePane\":[{\"properties\":{\"expanded\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY24SU06",
+            "path": "BaseThemes/CY24SU06.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "BigNumbers",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "249d7073c212999e274d",
+      "visualContainers": [],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "RFM",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "f55efd43ec59fe2dd63a",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"7672c2a4039955f4cb2f\",\"layouts\":[{\"id\":0,\"position\":{\"x\":21.2807881773399,\"y\":122.36453201970444,\"z\":0,\"width\":1236.9458128078818,\"height\":583.448275862069,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"pivotTable\",\"projections\":{\"Rows\":[{\"queryRef\":\"dim_customers.contact_name\",\"active\":true}],\"Values\":[{\"queryRef\":\"metrics.Last Purchase\"},{\"queryRef\":\"metrics.Days since Last Purchase\"},{\"queryRef\":\"metrics.Purchases\"},{\"queryRef\":\"metrics.Purchases Last 12M\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_customers\",\"Type\":0},{\"Name\":\"m\",\"Entity\":\"metrics\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"contact_name\"},\"Name\":\"dim_customers.contact_name\",\"NativeReferenceName\":\"Customer\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Last Purchase\"},\"Name\":\"metrics.Last Purchase\",\"NativeReferenceName\":\"Last Purchase\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Days since Last Purchase\"},\"Name\":\"metrics.Days since Last Purchase\",\"NativeReferenceName\":\"Days since Last Purchase\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Purchases\"},\"Name\":\"metrics.Purchases\",\"NativeReferenceName\":\"Purchases\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Purchases Last 12M\"},\"Name\":\"metrics.Purchases Last 12M\",\"NativeReferenceName\":\"Purchases Last 12M\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"m\"}},\"Property\":\"Purchases\"}}}]},\"columnProperties\":{\"dim_customers.contact_name\":{\"displayName\":\"Customer\"}},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 583.45,
+          "width": 1236.95,
+          "x": 21.28,
+          "y": 122.36,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"f8236dfc286e5a8feaf4\",\"layouts\":[{\"id\":0,\"position\":{\"x\":980.6896551724138,\"y\":9.753694581280788,\"z\":1000,\"width\":299.70443349753697,\"height\":68.27586206896552,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_calendar.Data\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_calendar\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Data\"},\"Name\":\"dim_calendar.Data\",\"NativeReferenceName\":\"Date\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Data\"}}}]},\"columnProperties\":{\"dim_calendar.Data\":{\"displayName\":\"Date\"}},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"data\":[{\"properties\":{\"startDate\":{\"expr\":{\"Literal\":{\"Value\":\"datetime'1996-04-01T00:00:00'\"}}},\"endDate\":{\"expr\":{\"Literal\":{\"Value\":\"datetime'1998-04-30T00:00:00'\"}}},\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Between'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_calendar\",\"Type\":0}],\"Where\":[{\"Condition\":{\"And\":{\"Left\":{\"Comparison\":{\"ComparisonKind\":2,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Data\"}},\"Right\":{\"Literal\":{\"Value\":\"datetime'1996-04-01T00:00:00'\"}}}},\"Right\":{\"Comparison\":{\"ComparisonKind\":3,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Data\"}},\"Right\":{\"Literal\":{\"Value\":\"datetime'1998-05-01T00:00:00'\"}}}}}}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 68.28,
+          "width": 299.70,
+          "x": 980.69,
+          "y": 9.75,
+          "z": 1000.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+table dim_products
+	lineageTag: 885f3651-7501-4f9a-9ace-65d9bd27700a
+
+	column product_id
+		dataType: string
+		lineageTag: a97e1aeb-01a6-4367-bd33-28e3b0497c31
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column supplier_id
+		dataType: string
+		lineageTag: 3f706990-e26a-4f32-abbf-4d7b8601855a
+		summarizeBy: none
+		sourceColumn: supplier_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_id
+		dataType: string
+		lineageTag: dcdc94bf-cb72-4672-aab7-ac56c8256124
+		summarizeBy: none
+		sourceColumn: category_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name
+		dataType: string
+		lineageTag: e369a99a-0af3-4502-a077-7c848c032a56
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_name
+		dataType: string
+		lineageTag: 55c1f11c-4590-4f4e-8305-0ede368f0d27
+		summarizeBy: none
+		sourceColumn: category_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column description
+		dataType: string
+		lineageTag: 5d311d69-a22f-4a93-9fe8-ea2a1eea92c1
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity_per_unit
+		dataType: string
+		lineageTag: 35c15edd-79b9-499d-b06b-635cdc6f8c14
+		summarizeBy: none
+		sourceColumn: quantity_per_unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price
+		dataType: double
+		lineageTag: 3b0bf6e1-ec31-48d4-8051-160ec23bce42
+		summarizeBy: none
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column units_in_stock
+		dataType: int64
+		formatString: 0
+		lineageTag: 337bcd17-fa31-4e7e-bfce-b3067e1ded8a
+		summarizeBy: none
+		sourceColumn: units_in_stock
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_on_order
+		dataType: int64
+		formatString: 0
+		lineageTag: b9690c79-0c2f-4569-a9be-27fc48801158
+		summarizeBy: none
+		sourceColumn: units_on_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column reorder_level
+		dataType: int64
+		formatString: 0
+		lineageTag: e947e6c1-49ae-40d4-b2f3-6af6aa888eb9
+		summarizeBy: none
+		sourceColumn: reorder_level
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_discontinued
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 327ee505-aeda-468f-8301-951fd95c1e6b
+		summarizeBy: none
+		sourceColumn: is_discontinued
+
+		annotation SummarizationSetBy = Automatic
+
+	column supply_company_name
+		dataType: string
+		lineageTag: e9920613-eb6b-4ea0-898a-4e2b6352be88
+		summarizeBy: none
+		sourceColumn: supply_company_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column supply_contact
+		dataType: string
+		lineageTag: b0bdcc30-5a1f-455c-9609-22c6982ccf26
+		summarizeBy: none
+		sourceColumn: supply_contact
+
+		annotation SummarizationSetBy = Automatic
+
+	column supply_contact_title
+		dataType: string
+		lineageTag: 7117b718-6d46-4160-b948-9da1e5e3d637
+		summarizeBy: none
+		sourceColumn: supply_contact_title
+
+		annotation SummarizationSetBy = Automatic
+
+	column supply_adress
+		dataType: string
+		lineageTag: 203414bf-b9bd-44d0-a755-6cd9a5e00920
+		summarizeBy: none
+		sourceColumn: supply_adress
+
+		annotation SummarizationSetBy = Automatic
+
+	column supply_city
+		dataType: string
+		lineageTag: 4123073c-4a09-4029-a86d-0988e18caa4b
+		summarizeBy: none
+		sourceColumn: supply_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column supply_region
+		dataType: string
+		lineageTag: 55b11558-a04b-4116-92d7-50408ef57c93
+		summarizeBy: none
+		sourceColumn: supply_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column supply_postal_code
+		dataType: string
+		lineageTag: 6a789500-4e6b-46c9-8508-796ffda873d2
+		summarizeBy: none
+		sourceColumn: supply_postal_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column supply_country
+		dataType: string
+		lineageTag: 97b304eb-632a-450d-93cf-984fb104ced5
+		summarizeBy: none
+		sourceColumn: supply_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column supply_phone
+		dataType: string
+		lineageTag: faf007e5-ddff-4a1f-8768-fe0ac8c3aa1e
+		summarizeBy: none
+		sourceColumn: supply_phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column supply_fax
+		dataType: string
+		lineageTag: 545b3c9d-c400-4255-9da7-1abef8ddfd43
+		summarizeBy: none
+		sourceColumn: supply_fax
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_products = m
+		mode: import
+		source =
+				let
+				    Fonte = Value.NativeQuery(PostgreSQL.Database("127.0.0.1", "northwind"), "SELECT product_id, supplier_id, category_id, product_name, category_name, description, quantity_per_unit, unit_price, units_in_stock, units_on_order, reorder_level, is_discontinued, supply_company_name, supply_contact, supply_contact_title, supply_adress, supply_city, supply_region, supply_postal_code, supply_country, supply_phone, supply_fax#(lf)#(tab)FROM erp.products", null, [EnableFolding=true])
+				in
+				    Fonte
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "northwind-dbt"
+version = "0.1.0"
+description = ""
+authors = ["VINICIUS FIALHO <vinicius.fialho96@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.2.2"
+sqlalchemy = "^2.0.32"
+psycopg2 = "^2.9.9"
+black = "^24.8.0"
+isort = "^5.13.2"
+taskipy = "^1.13.0"
+python-dotenv = "^1.0.1"
+dbt-postgres = "^1.8.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+
+[tool.taskipy.tasks]
+format = """
+black . && isort .
+"""
