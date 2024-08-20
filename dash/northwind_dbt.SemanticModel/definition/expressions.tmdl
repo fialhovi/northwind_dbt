@@ -1,0 +1,10 @@
+expression 'Postgres Server' = "127.0.0.1" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: d36a9e6c-720c-483d-92eb-dac07462285c
+
+	annotation PBI_ResultType = Text
+
+expression 'Northwind Database' = "northwind" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: a4374ccf-0ad1-4349-9eda-8a037bf33856
+
+	annotation PBI_ResultType = Text
+

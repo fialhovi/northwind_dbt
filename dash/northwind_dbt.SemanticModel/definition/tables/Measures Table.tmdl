@@ -1,0 +1,388 @@
+table 'Measures Table'
+	excludeFromModelRefresh
+	lineageTag: 5a933dc9-97b9-41e0-9f8f-8bcb6f5afa00
+
+	measure Orders =
+			IFERROR(
+			    CALCULATE(
+			        DISTINCTCOUNT(fct_orders[order_id]),
+			        USERELATIONSHIP(fct_orders[order_date], dim_calendar[Data])
+			        )
+			    ,0)
+		formatString: #,0
+		displayFolder: Orders
+		lineageTag: 697f4564-4515-4d60-8cb5-bc23f56d1581
+
+	measure Customers =
+			IFERROR(
+			    CALCULATE(
+			        DISTINCTCOUNT(fct_orders[customer_id]),
+			        USERELATIONSHIP(fct_orders[order_date], dim_calendar[Data])
+			        )
+			    ,0)
+		formatString: #,0
+		displayFolder: Customers
+		lineageTag: 30d6ebf3-c84d-46b3-915a-c0d5e12f71e0
+
+	measure Revenue =
+			IFERROR(
+			    CALCULATE(
+			        SUM(fct_orders[revenue]),
+			        USERELATIONSHIP(fct_orders[order_date], dim_calendar[Data])
+			        )
+			    ,0)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: Revenue
+		lineageTag: efc6bbb2-891b-4524-b96d-da0e9f5cc955
+
+	measure 'Avg Ticket' =
+			DIVIDE(
+			            [Revenue],[Orders]
+			            ,0)
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: Average Ticket
+		lineageTag: 7e06d789-231c-49f9-a23d-af676ac7ad56
+
+	measure 'Average Revenue Per Customer' = DIVIDE([Revenue],[Customers],0)
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: Average Revenue Per Customer
+		lineageTag: 95c75986-ac39-4782-a70f-8cda580fd7bc
+
+	measure Products =
+			IFERROR(
+			    CALCULATE(
+			        DISTINCTCOUNT(fct_orders[product_id]),
+			        USERELATIONSHIP(fct_orders[order_date], dim_calendar[Data])
+			        )
+			    ,0)
+		formatString: 0
+		displayFolder: Products
+		lineageTag: fc27ecca-cb77-4974-99e2-6e09c084063d
+
+	measure 'Revenue LY' =
+			
+			VAR LastPurchase =
+			CALCULATE(
+			    LASTDATE(fct_orders[order_date]),
+			    ALL(fct_orders)
+			)
+			VAR DataLimite = EDATE(LastPurchase, -12)
+			RETURN
+			
+			CALCULATE(
+			    [Revenue],
+			    SAMEPERIODLASTYEAR(dim_calendar[Data]),
+			    FILTER(
+			        ALL(dim_calendar),
+			        dim_calendar[Data] <= DataLimite
+			    )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: Revenue
+		lineageTag: 4bbc153e-1ab5-486a-8b30-679db7382dca
+
+	measure '%LY Total Revenue' = DIVIDE([Revenue],[Revenue LY],0) - 1
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Revenue
+		lineageTag: f9dd8bd2-41b7-40ac-8594-b6492d1dd503
+
+	measure 'Orders LY' =
+			
+			VAR UltimaVenda =
+			CALCULATE(
+			    LASTDATE(fct_orders[order_date]),
+			    ALL(fct_orders)
+			)
+			VAR DataLimite = EDATE(UltimaVenda, -12)
+			RETURN
+			
+			CALCULATE(
+			    [Orders],
+			    SAMEPERIODLASTYEAR(dim_calendar[Data]),
+			    FILTER(
+			        ALL(dim_calendar),
+			        dim_calendar[Data] <= DataLimite
+			    )
+			)
+		formatString: #,0
+		displayFolder: Orders
+		lineageTag: 47e6ae35-f35f-4805-afea-fab767d43c48
+
+	measure '%LY Total Orders' = DIVIDE([Orders],[Orders LY],0) - 1
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Orders
+		lineageTag: 7f32e4bb-bdfd-4fd2-9c45-89747a616f23
+
+	measure 'Avg Ticket LY' =
+			CALCULATE(
+			    [Avg Ticket],
+			    SAMEPERIODLASTYEAR(dim_calendar[Data])
+			)
+		formatString: "R$"#,0.00;-"R$"#,0.00;"R$"#,0.00
+		displayFolder: Average Ticket
+		lineageTag: 0f61f073-4a03-4f2c-8448-c02ddd893b07
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	measure '%LY Avg Ticket' = DIVIDE([Avg Ticket],[Avg Ticket LY],0) - 1
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Average Ticket
+		lineageTag: 3fa46289-6b6d-4e09-aa19-3910dd993169
+
+	measure '%LM Total Revenue' =
+			
+			VAR LM = CALCULATE([Revenue], DATEADD(dim_calendar[Data],-1,MONTH))
+			
+			VAR percentual = CALCULATE(IF(AND([Revenue] > 0, LM > 0),
+			                    ([Revenue] / LM) - 1,
+			                    IF(AND([Revenue] > 0, LM = 0), 1,
+			                        IF(AND([Revenue] <= 0, LM > 0), -1,
+			                        0
+			                        )
+			                    )
+			)
+			)
+			
+			RETURN percentual
+		formatString: 0%;-0%;0%
+		displayFolder: Revenue
+		lineageTag: 9f8f7b38-e4f8-44d9-9fd2-d0b1add84dcd
+
+	measure '%LM Total Orders' =
+			
+			VAR LM = CALCULATE([Orders], DATEADD(dim_calendar[Data],-1,MONTH))
+			
+			VAR percentual = CALCULATE(IF(AND([Orders] > 0, LM > 0),
+			                    ([Orders] / LM) - 1,
+			                    IF(AND([Orders] > 0, LM = 0), 1,
+			                        IF(AND([Orders] <= 0, LM > 0), -1,
+			                        0
+			                        )
+			                    )
+			)
+			)
+			
+			RETURN percentual
+		formatString: 0%;-0%;0%
+		displayFolder: Orders
+		lineageTag: 2669ecc9-8e95-4066-bacc-23354b1ab9bb
+
+	measure '%LM Total Customers' =
+			
+			VAR LM = CALCULATE([Customers], DATEADD(dim_calendar[Data],-1,MONTH))
+			
+			VAR percentual = CALCULATE(IF(AND([Customers] > 0, LM > 0),
+			                    ([Customers] / LM) - 1,
+			                    IF(AND([Customers] > 0, LM = 0), 1,
+			                        IF(AND([Customers] <= 0, LM > 0), -1,
+			                        0
+			                        )
+			                    )
+			)
+			)
+			
+			RETURN percentual
+		formatString: 0%;-0%;0%
+		displayFolder: Customers
+		lineageTag: 48280d8e-8057-49d4-aad2-112dca77bb83
+
+	measure '%LM Avg Ticket' =
+			
+			VAR LM = CALCULATE([Avg Ticket], DATEADD(dim_calendar[Data],-1,MONTH))
+			
+			VAR percentual = CALCULATE(IF(AND([Avg Ticket] > 0, LM > 0),
+			                    ([Avg Ticket] / LM) - 1,
+			                    IF(AND([Avg Ticket] > 0, LM = 0), 1,
+			                        IF(AND([Avg Ticket] <= 0, LM > 0), -1,
+			                        0
+			                        )
+			                    )
+			)
+			)
+			
+			RETURN percentual
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Average Ticket
+		lineageTag: 479494e1-8417-4cbc-98a9-8608205aebcb
+
+	measure '%LM Avg Revenue per Customer' =
+			
+			VAR LM = CALCULATE([Average Revenue Per Customer], DATEADD(dim_calendar[Data],-1,MONTH))
+			
+			VAR percentual = CALCULATE(IF(AND([Average Revenue Per Customer] > 0, LM > 0),
+			                    ([Average Revenue Per Customer] / LM) - 1,
+			                    IF(AND([Average Revenue Per Customer] > 0, LM = 0), 1,
+			                        IF(AND([Average Revenue Per Customer] <= 0, LM > 0), -1,
+			                        0
+			                        )
+			                    )
+			)
+			)
+			
+			RETURN percentual
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Average Revenue Per Customer
+		lineageTag: 966f1720-ffad-481f-ab29-cd49754600a5
+
+	measure 'Measures Big Numbers' = ```
+			
+			    SWITCH(
+			        VALUES('SelectMeasures'[Params]),
+			        "Revenue", [Revenue],
+			        "Orders", [Orders],
+			        "Avg Ticket", [Avg Ticket],
+			        "Avg Revenue per Customer", [Average Revenue Per Customer],
+			        0
+			    )
+			```
+		displayFolder: General
+		lineageTag: 33a09552-a657-4621-a337-9d7ed118e46b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Dynamic Title BN Main' = "monthly " & LOWER(SELECTEDVALUE(SelectMeasures[Params])) & " YoY"
+		displayFolder: Dynamic Titles
+		lineageTag: 6d21c3ba-17c4-418b-9303-cd53ccca10c5
+
+	measure 'Dynamic Title BN Category' = LOWER(SELECTEDVALUE(SelectMeasures[Params])) & " by category"
+		displayFolder: Dynamic Titles
+		lineageTag: fbd53df5-bef4-4853-93df-42961efc27a3
+
+	measure 'Dynamic Title Map' = "monthly " & LOWER(SELECTEDVALUE(SelectMeasures[Params])) & " by top 5 countries - " & MAX(dim_calendar[Ano])
+		displayFolder: Dynamic Titles
+		lineageTag: 22442d81-8354-4d81-8d6e-ee73fd365af4
+
+	measure 'Filter Applied' =
+			
+			IF(
+			    ISFILTERED(dim_products[category_name]) || ISFILTERED(dim_customers[country]) || ISFILTERED(dim_customers[city]) || ISFILTERED(dim_products[product_name]),
+			    "*filters have been applied!",
+			    ""
+			)
+		displayFolder: General
+		lineageTag: be77a722-6d9e-43fb-b02f-8a32608c363a
+
+	measure 'Dynamic Title BN Employees' = LOWER(SELECTEDVALUE(SelectMeasures[Params])) & " by employees"
+		displayFolder: Dynamic Titles
+		lineageTag: 849ad719-0cdb-4e80-89d7-5f85d545d1a4
+
+	measure 'Last Order' = MAX(fct_orders[order_date])
+		formatString: Short Date
+		displayFolder: RFM
+		lineageTag: 75976a7e-d74a-49f6-a1a0-34979ae3c342
+
+	measure 'Days since Last Order' =
+			
+			VAR CutDate = MIN( MAX(dim_calendar[Data]), TODAY() )
+			RETURN
+			
+			DATEDIFF([Last Order], CutDate, DAY)
+		formatString: 0
+		displayFolder: RFM
+		lineageTag: 32d39f05-ab31-4751-8534-f7dd9d67bcd7
+
+	measure 'Orders Last 12 Months' =
+			
+			VAR CutDate = MIN( MAX(dim_calendar[Data]), TODAY() )
+			RETURN
+			
+			CALCULATE(
+			    [Orders],
+			    DATESINPERIOD(
+			        dim_calendar[Data],
+			        CutDate,
+			        -12, MONTH
+			    )
+			)
+		formatString: 0
+		displayFolder: Orders
+		lineageTag: 728928e2-822b-4ebd-8ae1-5bb19f2d529c
+
+	measure frequency =
+			
+			SWITCH(
+			    TRUE(),
+			    [Orders Last 12 Months] >= 9, 5,
+			    [Orders Last 12 Months] >= 7, 4,
+			    [Orders Last 12 Months] >= 5, 3,
+			    [Orders Last 12 Months] >= 2, 2,
+			    [Orders Last 12 Months] = 1, 1
+			)
+		formatString: 0
+		displayFolder: RFM
+		lineageTag: 461f89b6-9813-4a23-ad3a-b1af8088d9e0
+
+	measure recency =
+			
+			SWITCH(
+			    TRUE(),
+			    [Days since Last Order] <= 30, 5,
+			    [Days since Last Order] <= 60, 4,
+			    [Days since Last Order] <= 120, 3,
+			    [Days since Last Order] <= 180, 2,
+			    [Days since Last Order] <= 365, 1
+			)
+		formatString: 0
+		displayFolder: RFM
+		lineageTag: ca6840a9-38a9-45a4-9fee-283f6b584635
+
+	measure '# Customers RFM' =
+			
+			CALCULATE(
+			    [Customers],
+			    FILTER(
+			        dim_customers,
+			        [Days since Last Order] >= MIN(Recency[Min]) &&
+			        [Days since Last Order] <= MAX(Recency[Max]) &&
+			        [Orders Last 12 Months] >= MIN(Frequency[Min]) &&
+			        [Orders Last 12 Months] <= MAX(Frequency[Max]
+			        )
+			    ))
+		formatString: 0
+		displayFolder: RFM
+		lineageTag: 6ddfec69-8969-4840-9251-1176af31816d
+
+	measure 'Revenue RFM' =
+			
+			CALCULATE(
+			    [Revenue],
+			    FILTER(
+			        dim_customers,
+			        [Days since Last Order] >= MIN(Recency[Min]) &&
+			        [Days since Last Order] <= MAX(Recency[Max]) &&
+			        [Orders Last 12 Months] >= MIN(Frequency[Min]) &&
+			        [Orders Last 12 Months] <= MAX(Frequency[Max]
+			        )
+			    ))
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: RFM
+		lineageTag: 1cfa3442-4e92-4bf1-a50d-a5e62ea87101
+
+	measure 'Orders RFM' =
+			
+			CALCULATE(
+			    [Orders],
+			    FILTER(
+			        dim_customers,
+			        [Days since Last Order] >= MIN(Recency[Min]) &&
+			        [Days since Last Order] <= MAX(Recency[Max]) &&
+			        [Orders Last 12 Months] >= MIN(Frequency[Min]) &&
+			        [Orders Last 12 Months] <= MAX(Frequency[Max]
+			        )
+			    ))
+		formatString: 0
+		displayFolder: RFM
+		lineageTag: 4716ff5b-cf70-4381-b4e3-1c2859724f2c
+
+	partition 'Measures Table' = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Coluna 1", type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"Coluna 1"})
+				in
+				    #"Colunas Removidas"
+
+	annotation PBI_ResultType = Table
+

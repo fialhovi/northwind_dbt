@@ -1,36 +1,16 @@
-relationship 37a90e2d-403b-46ca-82a7-f6fa5eaf3d96
-	joinOnDateBehavior: datePartOnly
-	fromColumn: dim_employees.birth_date
-	toColumn: LocalDateTable_b7e2c6c3-6cc5-4bca-9627-3c5f9598e87f.Date
-
-relationship d29f7f01-9ec1-4068-b18b-4cbb02d43857
-	joinOnDateBehavior: datePartOnly
-	fromColumn: dim_employees.hire_date
-	toColumn: LocalDateTable_ea6d62c4-126b-422b-b2d6-9aad293d53de.Date
-
-relationship AutoDetected_e3476040-dba9-4dba-a60d-caa0b540fceb
+relationship 51077049-cb8a-43a2-ae7a-8efd31955fd0
 	fromColumn: fct_orders.customer_id
 	toColumn: dim_customers.customer_id
 
-relationship AutoDetected_5020dbba-556b-4ba4-a3bb-5e7120789f95
-	fromColumn: fct_orders.employee_id
-	toColumn: dim_employees.employee_id
-
-relationship AutoDetected_11df62fa-3460-431d-9dfc-ac5e707b4c97
+relationship b5fb3bd7-f389-4bdf-aaef-269e2469b2a8
 	fromColumn: fct_orders.product_id
 	toColumn: dim_products.product_id
 
-relationship cfa51920-c0e7-4e6e-995d-9c87c4cec172
-	joinOnDateBehavior: datePartOnly
-	fromColumn: dim_calendar.Data
-	toColumn: LocalDateTable_2e6e3665-df4f-40dd-aecc-cadd93f561d6.Date
+relationship b9ec34e0-39b9-1754-7652-243d497528f8
+	fromColumn: fct_orders.employee_id
+	toColumn: dim_employees.employee_id
 
-relationship 0f9284ba-9e1e-4262-bf54-89f6726b5cbd
-	joinOnDateBehavior: datePartOnly
-	fromColumn: dim_calendar.InicioMes
-	toColumn: LocalDateTable_56ff2198-11d6-49cc-a63a-102fd04ac30b.Date
-
-relationship 5e280ff1-ced3-04c2-2615-7522badc0509
+relationship 4e039633-c16f-17d1-28d9-b004d27f1d88
 	fromColumn: fct_orders.order_date
 	toColumn: dim_calendar.Data
 

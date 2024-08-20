@@ -1,0 +1,58 @@
+table 'Dynamic Measures'
+	lineageTag: 8cc4a09e-390b-4659-9328-ab03735d2dc6
+
+	column 'Dynamic Measures'
+		dataType: string
+		lineageTag: 35466928-5199-4135-a44e-0c7bec6bc28d
+		summarizeBy: none
+		isDataTypeInferred
+		sourceColumn: [Value1]
+		sortByColumn: 'Dynamic Measures Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'Dynamic Measures Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dynamic Measures Campos'
+		dataType: string
+		isHidden
+		lineageTag: 79c1331a-6d98-42f1-aa64-3b4f4caf0f34
+		summarizeBy: none
+		isDataTypeInferred
+		sourceColumn: [Value2]
+		sortByColumn: 'Dynamic Measures Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dynamic Measures Pedido'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 876c081f-b6fd-473f-b1eb-826b178ce862
+		summarizeBy: sum
+		isDataTypeInferred
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dynamic Measures' = calculated
+		mode: import
+		source =
+				{
+				    ("Revenue", NAMEOF('Measures Table'[Revenue]), 0),
+				    ("# Orders", NAMEOF('Measures Table'[Orders]), 1),
+				    ("Avg Ticket", NAMEOF('Measures Table'[Avg Ticket]), 2),
+				    ("# Customers", NAMEOF('Measures Table'[Customers]), 3),
+				    ("# Products", NAMEOF('Measures Table'[Products]), 4),
+				    ("Avg Revenue per Customer", NAMEOF('Measures Table'[Average Revenue Per Customer]), 5)
+				}
+
+	annotation PBI_Id = a483ba358ce445c3b04536409ee6ff7a
+

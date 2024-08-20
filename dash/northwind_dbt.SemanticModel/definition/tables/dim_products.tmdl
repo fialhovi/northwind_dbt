@@ -1,9 +1,10 @@
 table dim_products
-	lineageTag: 885f3651-7501-4f9a-9ace-65d9bd27700a
+	lineageTag: 735b68a2-4784-4440-bb1c-d6b41ac98e3e
 
 	column product_id
 		dataType: string
-		lineageTag: a97e1aeb-01a6-4367-bd33-28e3b0497c31
+		isKey
+		lineageTag: 74c5d225-8723-4f43-8849-41abc6c09dae
 		summarizeBy: none
 		sourceColumn: product_id
 
@@ -11,7 +12,7 @@ table dim_products
 
 	column supplier_id
 		dataType: string
-		lineageTag: 3f706990-e26a-4f32-abbf-4d7b8601855a
+		lineageTag: cc68107a-e97d-442c-9cc2-b162c899b404
 		summarizeBy: none
 		sourceColumn: supplier_id
 
@@ -19,7 +20,7 @@ table dim_products
 
 	column category_id
 		dataType: string
-		lineageTag: dcdc94bf-cb72-4672-aab7-ac56c8256124
+		lineageTag: 48739b2b-7136-4b11-8c69-0b67c258c08a
 		summarizeBy: none
 		sourceColumn: category_id
 
@@ -27,7 +28,7 @@ table dim_products
 
 	column product_name
 		dataType: string
-		lineageTag: e369a99a-0af3-4502-a077-7c848c032a56
+		lineageTag: bebbecec-863f-43c2-b642-169647aaa15d
 		summarizeBy: none
 		sourceColumn: product_name
 
@@ -35,7 +36,7 @@ table dim_products
 
 	column category_name
 		dataType: string
-		lineageTag: 55c1f11c-4590-4f4e-8305-0ede368f0d27
+		lineageTag: 55ecc099-3476-4ce8-9e34-8805152a65df
 		summarizeBy: none
 		sourceColumn: category_name
 
@@ -43,7 +44,7 @@ table dim_products
 
 	column description
 		dataType: string
-		lineageTag: 5d311d69-a22f-4a93-9fe8-ea2a1eea92c1
+		lineageTag: fff26d3f-f1bc-4491-9612-8f38161ad335
 		summarizeBy: none
 		sourceColumn: description
 
@@ -51,7 +52,7 @@ table dim_products
 
 	column quantity_per_unit
 		dataType: string
-		lineageTag: 35c15edd-79b9-499d-b06b-635cdc6f8c14
+		lineageTag: a8bf91d3-083d-4969-80dd-362a86e786b9
 		summarizeBy: none
 		sourceColumn: quantity_per_unit
 
@@ -59,7 +60,7 @@ table dim_products
 
 	column unit_price
 		dataType: double
-		lineageTag: 3b0bf6e1-ec31-48d4-8051-160ec23bce42
+		lineageTag: 8a27d645-3d69-41da-9c97-1c0b45a0b0ed
 		summarizeBy: none
 		sourceColumn: unit_price
 
@@ -70,7 +71,7 @@ table dim_products
 	column units_in_stock
 		dataType: int64
 		formatString: 0
-		lineageTag: 337bcd17-fa31-4e7e-bfce-b3067e1ded8a
+		lineageTag: ef5f54bc-2147-4084-b464-8c60c0c4e981
 		summarizeBy: none
 		sourceColumn: units_in_stock
 
@@ -79,7 +80,7 @@ table dim_products
 	column units_on_order
 		dataType: int64
 		formatString: 0
-		lineageTag: b9690c79-0c2f-4569-a9be-27fc48801158
+		lineageTag: d352bc58-2a5b-4aa7-99ba-e3fa233689ad
 		summarizeBy: none
 		sourceColumn: units_on_order
 
@@ -88,7 +89,7 @@ table dim_products
 	column reorder_level
 		dataType: int64
 		formatString: 0
-		lineageTag: e947e6c1-49ae-40d4-b2f3-6af6aa888eb9
+		lineageTag: db8f9569-91b9-404a-9ef1-812711dee19a
 		summarizeBy: none
 		sourceColumn: reorder_level
 
@@ -97,7 +98,7 @@ table dim_products
 	column is_discontinued
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 327ee505-aeda-468f-8301-951fd95c1e6b
+		lineageTag: 9e985d3d-3c9d-4de4-a60c-83163d787318
 		summarizeBy: none
 		sourceColumn: is_discontinued
 
@@ -105,7 +106,7 @@ table dim_products
 
 	column supply_company_name
 		dataType: string
-		lineageTag: e9920613-eb6b-4ea0-898a-4e2b6352be88
+		lineageTag: 8b7af045-d819-467f-a54c-206815acd4f8
 		summarizeBy: none
 		sourceColumn: supply_company_name
 
@@ -113,7 +114,7 @@ table dim_products
 
 	column supply_contact
 		dataType: string
-		lineageTag: b0bdcc30-5a1f-455c-9609-22c6982ccf26
+		lineageTag: 15bba116-82eb-4709-b5da-8a5484d47e78
 		summarizeBy: none
 		sourceColumn: supply_contact
 
@@ -121,7 +122,7 @@ table dim_products
 
 	column supply_contact_title
 		dataType: string
-		lineageTag: 7117b718-6d46-4160-b948-9da1e5e3d637
+		lineageTag: 0d9d9274-a8a6-4427-b16d-974b4c5e7a62
 		summarizeBy: none
 		sourceColumn: supply_contact_title
 
@@ -129,7 +130,7 @@ table dim_products
 
 	column supply_adress
 		dataType: string
-		lineageTag: 203414bf-b9bd-44d0-a755-6cd9a5e00920
+		lineageTag: 58b82554-5e42-4750-8c77-e06b730b7ef6
 		summarizeBy: none
 		sourceColumn: supply_adress
 
@@ -137,7 +138,7 @@ table dim_products
 
 	column supply_city
 		dataType: string
-		lineageTag: 4123073c-4a09-4029-a86d-0988e18caa4b
+		lineageTag: 1f30beed-7fdf-4c7a-aaca-1a2dd0318d19
 		summarizeBy: none
 		sourceColumn: supply_city
 
@@ -145,7 +146,7 @@ table dim_products
 
 	column supply_region
 		dataType: string
-		lineageTag: 55b11558-a04b-4116-92d7-50408ef57c93
+		lineageTag: 82c98f32-b2e4-419b-90cd-d5d9fb16d153
 		summarizeBy: none
 		sourceColumn: supply_region
 
@@ -153,7 +154,7 @@ table dim_products
 
 	column supply_postal_code
 		dataType: string
-		lineageTag: 6a789500-4e6b-46c9-8508-796ffda873d2
+		lineageTag: 2e464788-623b-470d-9941-9f49c4fb6242
 		summarizeBy: none
 		sourceColumn: supply_postal_code
 
@@ -161,7 +162,7 @@ table dim_products
 
 	column supply_country
 		dataType: string
-		lineageTag: 97b304eb-632a-450d-93cf-984fb104ced5
+		lineageTag: a9cee9cf-2939-4a13-9727-558755b49f1d
 		summarizeBy: none
 		sourceColumn: supply_country
 
@@ -169,7 +170,7 @@ table dim_products
 
 	column supply_phone
 		dataType: string
-		lineageTag: faf007e5-ddff-4a1f-8768-fe0ac8c3aa1e
+		lineageTag: 8e0a5ee9-65ea-4ddc-9c3d-d4d1f9222dee
 		summarizeBy: none
 		sourceColumn: supply_phone
 
@@ -177,7 +178,7 @@ table dim_products
 
 	column supply_fax
 		dataType: string
-		lineageTag: 545b3c9d-c400-4255-9da7-1abef8ddfd43
+		lineageTag: 680d4a74-f8b1-4405-8e48-7368b045f9cd
 		summarizeBy: none
 		sourceColumn: supply_fax
 
@@ -185,13 +186,12 @@ table dim_products
 
 	partition dim_products = m
 		mode: import
+		queryGroup: Dimensions
 		source =
 				let
-				    Fonte = Value.NativeQuery(PostgreSQL.Database("127.0.0.1", "northwind"), "SELECT product_id, supplier_id, category_id, product_name, category_name, description, quantity_per_unit, unit_price, units_in_stock, units_on_order, reorder_level, is_discontinued, supply_company_name, supply_contact, supply_contact_title, supply_adress, supply_city, supply_region, supply_postal_code, supply_country, supply_phone, supply_fax#(lf)#(tab)FROM erp.products", null, [EnableFolding=true])
+				    Fonte = Value.NativeQuery(PostgreSQL.Database(#"Postgres Server", #"Northwind Database", [CreateNavigationProperties=false]), "SELECT product_id, supplier_id, category_id, product_name, category_name, description, quantity_per_unit, unit_price, units_in_stock, units_on_order, reorder_level, is_discontinued, supply_company_name, supply_contact, supply_contact_title, supply_adress, supply_city, supply_region, supply_postal_code, supply_country, supply_phone, supply_fax#(lf)#(tab)FROM erp.products", null, [EnableFolding=true])
 				in
 				    Fonte
-
-	annotation PBI_NavigationStepName = Navegação
 
 	annotation PBI_ResultType = Table
 

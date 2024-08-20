@@ -1,0 +1,56 @@
+table 'Dynamic Dimension'
+	lineageTag: eea14031-2d12-44bd-b74c-874b28096929
+
+	column 'Dynamic Dimension'
+		dataType: string
+		lineageTag: 3c5a4a2f-5b62-4296-9031-1eb6417561a4
+		summarizeBy: none
+		isDataTypeInferred
+		sourceColumn: [Value1]
+		sortByColumn: 'Dynamic Dimension Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'Dynamic Dimension Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dynamic Dimension Campos'
+		dataType: string
+		isHidden
+		lineageTag: e9dc5f2b-a6d8-40a9-80fc-7d48adfeab43
+		summarizeBy: none
+		isDataTypeInferred
+		sourceColumn: [Value2]
+		sortByColumn: 'Dynamic Dimension Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dynamic Dimension Pedido'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 585f8940-313f-4c6d-9ac4-98a9c7d38781
+		summarizeBy: sum
+		isDataTypeInferred
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dynamic Dimension' = calculated
+		mode: import
+		source =
+				{
+				    ("Country", NAMEOF('dim_customers'[country]), 0),
+				    ("City", NAMEOF('dim_customers'[city]), 1),
+				    ("Product Category", NAMEOF('dim_products'[category_name]), 2),
+				    ("Product Name", NAMEOF('dim_products'[product_name]), 3)
+				}
+
+	annotation PBI_Id = 397fd29ff36f4688804edcd2d29ac003
+

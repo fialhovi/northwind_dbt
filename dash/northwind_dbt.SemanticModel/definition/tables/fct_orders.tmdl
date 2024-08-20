@@ -1,33 +1,37 @@
 table fct_orders
-	lineageTag: 3337b295-60fd-4f13-9d76-4df055b82d14
+	lineageTag: f31018b8-4787-434b-a6c5-b88efba170a6
 
 	column order_id
 		dataType: string
-		lineageTag: 03c6fe9d-cc35-4c55-a188-7de1decaf8ab
+		lineageTag: 3755f95b-6676-4251-a3e5-dea08277862e
 		summarizeBy: none
 		sourceColumn: order_id
 
 		annotation SummarizationSetBy = Automatic
 
-	column product_id
+	column customer_id
 		dataType: string
-		lineageTag: 38ac5a4b-865e-4ff2-a36f-d9f764deea1a
+		lineageTag: a50ee383-efe5-431a-82af-51ac44cff82a
 		summarizeBy: none
-		sourceColumn: product_id
+		sourceColumn: customer_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
-	column customer_id
+	column product_id
 		dataType: string
-		lineageTag: 0df1c457-918c-4b60-bbe9-b7cb2abd0bb0
+		lineageTag: fcb408bd-5ac7-4bcc-a070-25e90e3bcc71
 		summarizeBy: none
-		sourceColumn: customer_id
+		sourceColumn: product_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column employee_id
 		dataType: string
-		lineageTag: 3cf03ca8-1081-48f2-b9c3-47c35b338eae
+		lineageTag: beeb208e-e5f1-46e5-89d0-7a512b207c20
 		summarizeBy: none
 		sourceColumn: employee_id
 
@@ -36,7 +40,7 @@ table fct_orders
 	column order_date
 		dataType: dateTime
 		formatString: Long Date
-		lineageTag: 56a0bd7b-9acf-4b75-ab13-2215be363f8e
+		lineageTag: 93e10e3f-80ff-40d1-bbcc-e40717d36c1b
 		summarizeBy: none
 		sourceColumn: order_date
 
@@ -46,7 +50,7 @@ table fct_orders
 
 	column revenue
 		dataType: double
-		lineageTag: 42c58da0-9470-4aa2-ba78-7e88d542a9a3
+		lineageTag: d0caf03e-7dd5-4105-be6d-2a9e29742d61
 		summarizeBy: sum
 		sourceColumn: revenue
 
@@ -56,7 +60,7 @@ table fct_orders
 
 	column ship_via
 		dataType: string
-		lineageTag: e57b97cc-2410-4f6c-aeaf-43656281103c
+		lineageTag: aedc59e4-3897-4a81-a6fd-d477b00dd04c
 		summarizeBy: none
 		sourceColumn: ship_via
 
@@ -64,7 +68,7 @@ table fct_orders
 
 	column ship_name
 		dataType: string
-		lineageTag: b38110f4-4f93-45ab-adf7-2e27d2f468ca
+		lineageTag: d05c3868-7f90-4eda-abb5-0af59eb620b3
 		summarizeBy: none
 		sourceColumn: ship_name
 
@@ -72,7 +76,7 @@ table fct_orders
 
 	column ship_address
 		dataType: string
-		lineageTag: 06bcc37c-d4b8-40b7-b7fe-e408effc5da0
+		lineageTag: 992528cd-8fa3-4392-b60f-a3208e21ed53
 		summarizeBy: none
 		sourceColumn: ship_address
 
@@ -80,7 +84,7 @@ table fct_orders
 
 	column ship_city
 		dataType: string
-		lineageTag: 59b42b61-eac0-49a3-8e3d-b165a68f7254
+		lineageTag: 42407186-8556-480b-a394-75e5f4d744e8
 		summarizeBy: none
 		sourceColumn: ship_city
 
@@ -88,7 +92,7 @@ table fct_orders
 
 	column ship_region
 		dataType: string
-		lineageTag: e21867d3-ed7f-48f3-bbe0-dc96e4648c09
+		lineageTag: a81878cf-36fb-41ce-9134-0652eaead137
 		summarizeBy: none
 		sourceColumn: ship_region
 
@@ -96,7 +100,7 @@ table fct_orders
 
 	column ship_postal_code
 		dataType: string
-		lineageTag: c863f809-5e92-426c-9c0a-5313da70e080
+		lineageTag: 4333d8b9-ea31-4809-b36b-5831bbb513bc
 		summarizeBy: none
 		sourceColumn: ship_postal_code
 
@@ -104,7 +108,7 @@ table fct_orders
 
 	column ship_country
 		dataType: string
-		lineageTag: 2643718c-b090-4b3e-a687-3e8a89b8b958
+		lineageTag: d6aae72c-8b36-410a-aefc-4f9be5de9a27
 		summarizeBy: none
 		sourceColumn: ship_country
 
@@ -112,7 +116,7 @@ table fct_orders
 
 	column freight
 		dataType: double
-		lineageTag: d6c1c390-8d9f-4017-b55f-29bbde14f2c0
+		lineageTag: c236dca9-7c93-4ed6-a026-4efc2b2457f2
 		summarizeBy: sum
 		sourceColumn: freight
 
@@ -122,14 +126,15 @@ table fct_orders
 
 	partition fct_orders = m
 		mode: import
+		queryGroup: Fact
 		source =
 				let
-				    Fonte = Value.NativeQuery(PostgreSQL.Database("127.0.0.1", "northwind"), "SELECT order_id, product_id, customer_id, employee_id, order_date, revenue, ship_via, ship_name, ship_address, ship_city, ship_region, ship_postal_code, ship_country, freight#(lf)#(tab)FROM erp.orders", null, [EnableFolding=true]),
+				    Fonte = Value.NativeQuery(PostgreSQL.Database(#"Postgres Server", #"Northwind Database", [CreateNavigationProperties=false]), "SELECT order_id, product_id, customer_id, employee_id, order_date, revenue, ship_via, ship_name, ship_address, ship_city, ship_region, ship_postal_code, ship_country, freight#(lf)#(tab)FROM erp.orders", null, [EnableFolding=true]),
 				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"order_date", type date}})
 				in
 				    #"Tipo Alterado"
 
-	annotation PBI_NavigationStepName = Navegação
-
 	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
 

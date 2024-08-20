@@ -1,34 +1,66 @@
 table dim_calendar
-	lineageTag: 32b6f20e-e73b-437e-aea4-1dd50f459651
+	lineageTag: 49ff3b0d-7cc4-45ec-9086-88ff44a7d15f
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: de939278-0a98-4ae6-9c30-d6f5aef52b19
+		summarizeBy: none
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		dataType: int64
+		formatString: 0
+		lineageTag: d10a4e6e-4831-4912-8309-0906894c796d
+		summarizeBy: none
+		sourceColumn: Trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Name of Month' =
+			SWITCH (
+			         [MesNum],
+			         1, "Jan",
+			         2, "Feb",
+			         3, "Mar",
+			         4, "Apr",
+			         5, "May",
+			         6, "Jun",
+			         7, "Jul",
+			         8, "Aug",
+			         9, "Sep",
+			         10, "Oct",
+			         11, "Nov",
+			         12, "Dec",
+			         "Unknown month number"
+			        )
+		dataType: string
+		lineageTag: a76500e3-105d-4633-a121-fd7430e75924
+		summarizeBy: none
+		isDataTypeInferred
+		sortByColumn: MesNum
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
 
 	column Data
 		dataType: dateTime
+		isKey
 		formatString: Long Date
-		lineageTag: db74e112-36e6-46ef-a02a-1666c8be464e
+		lineageTag: f39f8130-3674-41b8-bb30-e7ab3ca44cbc
 		summarizeBy: none
 		sourceColumn: Data
-
-		variation Variation
-			isDefault
-			relationship: cfa51920-c0e7-4e6e-995d-9c87c4cec172
-			defaultHierarchy: LocalDateTable_2e6e3665-df4f-40dd-aecc-cadd93f561d6.'Hierarquia de datas'
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
 
-	column Ano
-		dataType: int64
-		formatString: 0
-		lineageTag: 765f39df-e5a5-45ce-841b-50c6ef4f4391
-		summarizeBy: sum
-		sourceColumn: Ano
-
-		annotation SummarizationSetBy = Automatic
-
 	column NomeMes
 		dataType: string
-		lineageTag: 760335e1-490c-4d32-b760-1abad42cbdbf
+		lineageTag: 1d4fd153-735a-48d7-8334-de54290d74a2
 		summarizeBy: none
 		sourceColumn: NomeMes
 
@@ -36,7 +68,7 @@ table dim_calendar
 
 	column MesAbre
 		dataType: string
-		lineageTag: 73030a19-221c-490e-a48e-81dda5ae5f6d
+		lineageTag: 00a7a7dc-4336-4eb3-a354-e6011a950673
 		summarizeBy: none
 		sourceColumn: MesAbre
 
@@ -44,7 +76,7 @@ table dim_calendar
 
 	column MesAno
 		dataType: string
-		lineageTag: 84469d31-23aa-43a7-89ee-4e72d08e9f25
+		lineageTag: 4004afc0-65de-4219-8482-e2e8809dac28
 		summarizeBy: none
 		sourceColumn: MesAno
 
@@ -52,8 +84,8 @@ table dim_calendar
 
 	column MesNum
 		dataType: double
-		lineageTag: bcb5b6db-530b-4d02-816a-baf321fca08d
-		summarizeBy: sum
+		lineageTag: 23eb673d-6d2f-4907-a2d4-e379c32acf2c
+		summarizeBy: none
 		sourceColumn: MesNum
 
 		annotation SummarizationSetBy = Automatic
@@ -62,8 +94,8 @@ table dim_calendar
 
 	column AnoMesINT
 		dataType: double
-		lineageTag: a616a38b-ab3b-4adf-a202-b8e7f28aed8b
-		summarizeBy: sum
+		lineageTag: 1e81e2d6-64fb-431e-bf76-66da58b09974
+		summarizeBy: none
 		sourceColumn: AnoMesINT
 
 		annotation SummarizationSetBy = Automatic
@@ -73,31 +105,17 @@ table dim_calendar
 	column InicioMes
 		dataType: dateTime
 		formatString: Long Date
-		lineageTag: ef74c837-30eb-4196-bce1-103eac5b206e
+		lineageTag: 4a235a61-f857-485c-94e2-ee8f16eead4e
 		summarizeBy: none
 		sourceColumn: InicioMes
-
-		variation Variation
-			isDefault
-			relationship: 0f9284ba-9e1e-4262-bf54-89f6726b5cbd
-			defaultHierarchy: LocalDateTable_56ff2198-11d6-49cc-a63a-102fd04ac30b.'Hierarquia de datas'
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
 
-	column Trimestre
-		dataType: int64
-		formatString: 0
-		lineageTag: 25393e8a-20d2-4e3a-a9b3-1ec709543230
-		summarizeBy: sum
-		sourceColumn: Trimestre
-
-		annotation SummarizationSetBy = Automatic
-
 	column TrimestreAbreviado
 		dataType: string
-		lineageTag: d36b3766-384a-41b5-a4fd-f65f7b5f7069
+		lineageTag: 0a68301e-6c35-4fe2-83e3-0695927ebedd
 		summarizeBy: none
 		sourceColumn: TrimestreAbreviado
 
@@ -105,7 +123,7 @@ table dim_calendar
 
 	column Bimestre
 		dataType: string
-		lineageTag: 1cb910be-6544-4a87-ac60-53750634758a
+		lineageTag: d42792ea-33ae-4a5d-a77d-1b914ba37882
 		summarizeBy: none
 		sourceColumn: Bimestre
 
@@ -113,7 +131,7 @@ table dim_calendar
 
 	column Semestre
 		dataType: string
-		lineageTag: b76e3868-885e-4a08-a238-9a4e84633c10
+		lineageTag: 729705d6-bd52-44df-8c66-ce021b32c934
 		summarizeBy: none
 		sourceColumn: Semestre
 
@@ -122,8 +140,8 @@ table dim_calendar
 	column Semana
 		dataType: int64
 		formatString: 0
-		lineageTag: 63f15f53-2212-4ce8-9b10-e418af2b1bdb
-		summarizeBy: sum
+		lineageTag: 1afc3f9c-0cbd-484e-a67c-b6f639ec8791
+		summarizeBy: none
 		sourceColumn: Semana
 
 		annotation SummarizationSetBy = Automatic
@@ -131,15 +149,15 @@ table dim_calendar
 	column DiaSemana
 		dataType: int64
 		formatString: 0
-		lineageTag: 90bc8a25-9810-45bb-8130-596235241baf
-		summarizeBy: sum
+		lineageTag: fc64c6a2-df2c-4139-9b35-d34994f3e25e
+		summarizeBy: none
 		sourceColumn: DiaSemana
 
 		annotation SummarizationSetBy = Automatic
 
 	column NomeDia
 		dataType: string
-		lineageTag: 7d124521-b1e0-4ee0-91b2-ca7c2252f014
+		lineageTag: 8401bac0-098d-4d08-9e68-aa812faa59d7
 		summarizeBy: none
 		sourceColumn: NomeDia
 
@@ -148,7 +166,7 @@ table dim_calendar
 	column Passado
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 57eaea45-9587-496c-aca0-7ba61e62c193
+		lineageTag: a9053b21-f77d-4edb-83cd-511636c51b1e
 		summarizeBy: none
 		sourceColumn: Passado
 
@@ -156,7 +174,7 @@ table dim_calendar
 
 	column AnoAtual
 		dataType: string
-		lineageTag: 64bc5170-ee1b-4901-9977-27cd7c658853
+		lineageTag: 260ea8c7-a6de-41cd-9c0a-457bc16bfa1a
 		summarizeBy: none
 		sourceColumn: AnoAtual
 
@@ -164,27 +182,31 @@ table dim_calendar
 
 	column MesAtual
 		dataType: string
-		lineageTag: ecf8080c-1fd0-492b-a2bb-70d3268b880a
+		lineageTag: 98d4d870-0c09-4556-84dd-9575cd2270ef
 		summarizeBy: none
 		sourceColumn: MesAtual
 
 		annotation SummarizationSetBy = Automatic
 
+	hierarchy 'Data Hierarquia'
+		lineageTag: a4845753-df0c-4b63-9e4b-8edd7386adbf
+
+		level Ano
+			lineageTag: a748ab2c-688c-4eca-8d8f-203331418eaa
+			column: Ano
+
+		level Trimestre
+			lineageTag: 59df42c9-547c-4f85-8ed7-95fb7694387a
+			column: Trimestre
+
 	partition dim_calendar = m
 		mode: import
+		queryGroup: Dimensions
 		source = ```
 				let
 				
-				//Alterar somente a Tabela e a coluna de datas
-				/* A Tabela é onde possui uma coluna Data que deseja usar em seus cálculos ou visuais. 
-				Exemplo. Tabela fVendas que possui a coluna Data Pedido Ficaria List.Min (fVendas[Data Pedido]).
-				Se Possuir mais de uma coluna ficaria List.Min (fVendas[Data Pedido] & fVendas[Data Vencimento]).
-				*/
-				
 				    MenorData = List.Min (fct_orders[order_date]),
 				    MaiorData = List.Max (fct_orders[order_date]),
-					
-				//Não alterar daqui pra baixo	
 					
 				    DataInicio = Date.StartOfYear(MenorData),
 				    DataFim = Date.EndOfYear(MaiorData),
@@ -240,7 +262,7 @@ table dim_calendar
 				    Tabela
 				```
 
-	annotation PBI_NavigationStepName = Navegação
-
 	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
 

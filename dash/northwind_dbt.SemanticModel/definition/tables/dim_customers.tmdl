@@ -1,17 +1,49 @@
 table dim_customers
-	lineageTag: 3378dea7-5dd1-41d0-98a8-a470fd344121
+	lineageTag: a2bb24f4-04f7-4d6c-8575-12201cdd59b1
 
 	column customer_id
 		dataType: string
-		lineageTag: 667d6af9-5bae-4602-a7e6-ad4beae4aedb
+		isKey
+		lineageTag: 21a661fc-865c-45dc-81b5-f18d0186d2b0
 		summarizeBy: none
 		sourceColumn: customer_id
 
 		annotation SummarizationSetBy = Automatic
 
+	column customer_revenue =
+			
+			CALCULATE(
+			    SUM(fct_orders[revenue]),
+			    FILTER(fct_orders, fct_orders[customer_id] = dim_customers[customer_id])
+			)
+		dataType: double
+		formatString: "R$"#,0.###############;-"R$"#,0.###############;"R$"#,0.###############
+		lineageTag: fa883149-ca35-42d4-9c0c-9cec63aff07d
+		summarizeBy: none
+		isDataTypeInferred
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column customer_segmentation =
+			
+			SWITCH(
+			    TRUE(),
+			    dim_customers[customer_revenue] <= 100, "Low",
+			    dim_customers[customer_revenue] <= 500, "Average",
+			    "High"
+			)
+		dataType: string
+		lineageTag: 1dd0c67d-89fb-4831-8d9a-efcd1791cdd7
+		summarizeBy: none
+		isDataTypeInferred
+
+		annotation SummarizationSetBy = Automatic
+
 	column company_name
 		dataType: string
-		lineageTag: fe6f126d-e1fd-4a8a-8d9f-8a4e256d6293
+		lineageTag: 8a2fe7f0-71b8-438a-a9b9-9785913411f2
 		summarizeBy: none
 		sourceColumn: company_name
 
@@ -19,7 +51,7 @@ table dim_customers
 
 	column contact_name
 		dataType: string
-		lineageTag: 4bcc2bff-d2d8-4ba1-b339-eb0752007a9b
+		lineageTag: 2b69a167-451d-4cce-bb9f-f0a4269d7834
 		summarizeBy: none
 		sourceColumn: contact_name
 
@@ -27,7 +59,7 @@ table dim_customers
 
 	column contact_title
 		dataType: string
-		lineageTag: db510275-1952-4f05-bc7e-43c744bbdf75
+		lineageTag: a1750de7-fdb6-46f0-85a3-367b481ab1d7
 		summarizeBy: none
 		sourceColumn: contact_title
 
@@ -35,7 +67,7 @@ table dim_customers
 
 	column address
 		dataType: string
-		lineageTag: 6e125bbb-4250-42d4-834e-d59e58293a44
+		lineageTag: 68d35376-ac85-493c-8bd4-529877c0cef3
 		summarizeBy: none
 		sourceColumn: address
 
@@ -43,7 +75,7 @@ table dim_customers
 
 	column city
 		dataType: string
-		lineageTag: 14f16e90-6d91-408e-b34e-bda876ebfa59
+		lineageTag: beae108a-e65f-4bf9-a877-2f83c14329d3
 		summarizeBy: none
 		sourceColumn: city
 
@@ -51,7 +83,7 @@ table dim_customers
 
 	column region
 		dataType: string
-		lineageTag: 7c1f853e-7f7f-485b-b7a9-a5050c0ea7e2
+		lineageTag: fc988fe5-9ea5-4ea3-bb52-056a936987cf
 		summarizeBy: none
 		sourceColumn: region
 
@@ -59,7 +91,7 @@ table dim_customers
 
 	column postal_code
 		dataType: string
-		lineageTag: 9aefdd5d-8661-4da1-805f-56dbc7fd1610
+		lineageTag: 09f1478b-c4f1-4fce-a49b-a8dcc33aecd2
 		summarizeBy: none
 		sourceColumn: postal_code
 
@@ -67,7 +99,7 @@ table dim_customers
 
 	column country
 		dataType: string
-		lineageTag: 0fb0fa8d-7792-4c21-ab9c-6c7a436bd8cd
+		lineageTag: 56c0eec9-a576-4166-8709-1fb7f0a811ba
 		summarizeBy: none
 		sourceColumn: country
 
@@ -75,7 +107,7 @@ table dim_customers
 
 	column phone
 		dataType: string
-		lineageTag: f0c2dcb9-e752-405c-8376-82fde501b549
+		lineageTag: 6e35f462-2fa5-416e-bec4-4cd4ab67054f
 		summarizeBy: none
 		sourceColumn: phone
 
@@ -83,21 +115,56 @@ table dim_customers
 
 	column fax
 		dataType: string
-		lineageTag: c3434aff-ae91-4d59-a259-b52c1decbb0e
+		lineageTag: f8702027-dbd1-47d3-a497-0f6c8e317618
 		summarizeBy: none
 		sourceColumn: fax
 
 		annotation SummarizationSetBy = Automatic
 
+	column recency =
+			
+			SWITCH(
+			    TRUE(),
+			    [Days since Last Order] <= 30, 5,
+			    [Days since Last Order] <= 60, 4,
+			    [Days since Last Order] <= 120, 3,
+			    [Days since Last Order] <= 180, 2,
+			    [Days since Last Order] <= 365, 1
+			)
+		dataType: int64
+		formatString: 0
+		lineageTag: 33b80877-a0a7-4838-b67e-0579193e6606
+		summarizeBy: none
+		isDataTypeInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	column frequency =
+			
+			SWITCH(
+			    TRUE(),
+			    [Orders Last 12 Months] >= 9, 5,
+			    [Orders Last 12 Months] >= 7, 4,
+			    [Orders Last 12 Months] >= 5, 3,
+			    [Orders Last 12 Months] >= 2, 2,
+			    [Orders Last 12 Months] = 1, 1
+			)
+		dataType: int64
+		formatString: 0
+		lineageTag: 16c3bc4e-2039-47a4-9e35-a7c0393ec93c
+		summarizeBy: none
+		isDataTypeInferred
+
+		annotation SummarizationSetBy = Automatic
+
 	partition dim_customers = m
 		mode: import
+		queryGroup: Dimensions
 		source =
 				let
-				    Fonte = Value.NativeQuery(PostgreSQL.Database("127.0.0.1", "northwind"), "SELECT#(lf)#(tab)customer_id,#(lf)#(tab)company_name,#(lf)#(tab)contact_name,#(lf)#(tab)contact_title,#(lf)#(tab)address,#(lf)#(tab)city,#(lf)#(tab)region,#(lf)#(tab)postal_code,#(lf)#(tab)country,#(lf)#(tab)phone,#(lf)#(tab)fax#(lf)FROM erp.customers", null, [EnableFolding=true])
+				    Fonte = Value.NativeQuery(PostgreSQL.Database(#"Postgres Server", #"Northwind Database", [CreateNavigationProperties=false]), "SELECT#(lf)#(tab)customer_id,#(lf)#(tab)company_name,#(lf)#(tab)contact_name,#(lf)#(tab)contact_title,#(lf)#(tab)address,#(lf)#(tab)city,#(lf)#(tab)region,#(lf)#(tab)postal_code,#(lf)#(tab)country,#(lf)#(tab)phone,#(lf)#(tab)fax#(lf)FROM erp.customers", null, [EnableFolding=true])
 				in
 				    Fonte
-
-	annotation PBI_NavigationStepName = Navegação
 
 	annotation PBI_ResultType = Table
 

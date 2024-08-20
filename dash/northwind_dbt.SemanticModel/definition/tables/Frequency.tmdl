@@ -1,0 +1,41 @@
+table Frequency
+	lineageTag: 7febc2bf-ecda-438e-8c5f-1d036a117565
+
+	column Frequency
+		dataType: int64
+		formatString: 0
+		lineageTag: 7ef78c43-1aae-4635-a37c-eda94e489159
+		summarizeBy: sum
+		sourceColumn: Frequency
+
+		annotation SummarizationSetBy = Automatic
+
+	column Min
+		dataType: int64
+		formatString: 0
+		lineageTag: 66ed6153-91f7-45b6-8d4c-0251bfbba1c7
+		summarizeBy: sum
+		sourceColumn: Min
+
+		annotation SummarizationSetBy = Automatic
+
+	column Max
+		dataType: int64
+		formatString: 0
+		lineageTag: b0a9e9a7-760a-4fbb-9fdc-bf0606621641
+		summarizeBy: sum
+		sourceColumn: Max
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Frequency = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMlXSUbIEYRhQitWJVjIBipgDsQWYZwxkgdSZgXlGQBYIm4B5hkAWBMfGAgA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Frequency = _t, Min = _t, Max = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Frequency", Int64.Type}, {"Min", Int64.Type}, {"Max", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

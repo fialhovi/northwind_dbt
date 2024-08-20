@@ -1,0 +1,36 @@
+table SelectMeasures
+	lineageTag: d6b3bc73-c57e-4b99-b83c-6d29a75cc9ac
+
+	column Params
+		dataType: string
+		lineageTag: 31602bc5-aa10-46aa-820b-2a05e292d0ed
+		summarizeBy: none
+		isDataTypeInferred
+		sourceColumn: [Value1]
+		sortByColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sort
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 206847ff-fcb8-45ee-9065-b1f9f7a96b94
+		summarizeBy: sum
+		isDataTypeInferred
+		sourceColumn: [Value2]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SelectMeasures = calculated
+		mode: import
+		source =
+				{
+				    ("Revenue", 0),
+				    ("Orders", 1),
+				    ("Avg Ticket", 3),
+				    ("Avg Revenue per Customer", 4)
+				}
+
+	annotation PBI_Id = 77824e39e9b244389ec54cbe8907b6f6
+

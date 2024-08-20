@@ -1,0 +1,22 @@
+table LastUpdate
+	lineageTag: 171207f6-980a-4d8b-9548-88c2d35b1614
+
+	column LastUpdate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5094c9aa-3339-4085-a06c-ac4bcf004418
+		summarizeBy: none
+		sourceColumn: LastUpdate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition LastUpdate = m
+		mode: import
+		source =
+				let
+				    Fonte = DateTime.LocalNow()
+				in
+				    Fonte
+
+	annotation PBI_ResultType = DateTime
+
